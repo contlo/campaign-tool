@@ -13,7 +13,6 @@ class AutonomousEmailInput(BaseModel):
     body: str = Field(..., description="Email Body to be sent")
     segmentId: str = Field(..., description="Segment ID")
     time: str = Field(..., description="Campaign schedule time")
-    shop_id: str = Field(..., description="Shop ID")
     replyEmail: str = Field(..., description="Email Address for reply, default email is 'example@example.com'")
 
 
@@ -34,13 +33,13 @@ class AutonomousEmailTool(BaseTool):
     class Config:
         arbitrary_types_allowed = True
 
-    def _execute(self, sender_email: str, sender_name: str, subject: str, body: str, segment_id: str, time: str, shop_id: str, reply_mail: str) -> str:
+    def _execute(self, senderEmail: str, senderName: str, subject: str, body: str, segmentId: str, time: str, replyEmail: str) -> str:
 
         api_key = self.get_tool_config("CONTLO_PRIVATE_KEY")
         url = "https://marketing.contlo.com/superagi/new_superagi_campaign"
 
-        data = {'segment_id': segment_id, 'sender_name': sender_name, 'sender_email': sender_email,
-                'reply_to_mail': reply_mail, 'subject': subject, 'body': body, 'time': time}
+        data = {'segment_id': segmentId, 'sender_name': senderName, 'sender_email': senderEmail,
+                'reply_to_mail': replyEmail, 'subject': subject, 'body': body, 'time': time}
 
         return requests.post(url=url, data=json.dumps(data), headers={"X-API-KEY": api_key}).text
 
