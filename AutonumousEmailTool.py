@@ -36,7 +36,7 @@ class AutonomousEmailTool(BaseTool):
     def _execute(self, senderEmail: str, senderName: str, subject: str, body: str, segmentId: str, time: str, replyEmail: str) -> str:
 
         api_key = self.get_tool_config("CONTLO_PRIVATE_KEY")
-        url = "https://staging2.contlo.com/superagi/new_superagi_campaign"
+        url = "https://staging2.contlo.in/superagi/new_superagi_campaign"
 
         data = {'segment_id': segmentId, 'sender_name': senderName, 'sender_email': senderEmail,
                 'reply_to_mail': replyEmail, 'subject': subject, 'body': body, 'time': time}
